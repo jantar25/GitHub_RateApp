@@ -3,6 +3,8 @@ import theme from '../theme';
 import Text from './Text';
 
 const Item = ({repository}) => {
+    const formatK = n => n >= 1e3 ? +(n / 1e3).toFixed(1) + "K" : n
+
     const styles = StyleSheet.create({
         container: {
           padding:20,  
@@ -10,8 +12,8 @@ const Item = ({repository}) => {
           backgroundColor:'#fff'
         },
         image: {
-          width: 60,
-          height: 60,
+          width: 50,
+          height: 50,
           borderRadius:5
         },
         topCard: {
@@ -27,13 +29,21 @@ const Item = ({repository}) => {
         },
         info: {
             paddingHorizontal:20,
-            paddingVertical:10
+            paddingVertical:5,
+        },
+        description: {
+            paddingVertical:3,
         },
         language: {
             backgroundColor:theme.colors.primary,
             color:'#fff',
             alignSelf: 'flex-start',
             padding:5,
+            borderRadius:5,
+        },
+        stats: {
+            display:'flex',
+            alignItems:'center'
         }
       });
     return (
@@ -44,27 +54,39 @@ const Item = ({repository}) => {
             source={{uri:repository.ownerAvatarUrl}}
             />
             <View style={styles.info}>
-                <Text color="primary" fontWeight="bold" fontSize="subheading">{repository.fullName}</Text>
-                <Text color="textSecondary">{repository.description}</Text>
+                <Text fontWeight="bold" fontSize="subheading">
+                        {repository.fullName}
+                </Text>
+                <Text color="textSecondary" style={styles.description}>
+                    {repository.description}
+                </Text>
                 <Text style={styles.language}>{repository.language}</Text>
             </View>
         </View>
         <View style={styles.bottomCard}>
-            <View>
-                <Text >{repository.stargazersCount}</Text>
-                <Text >Stars</Text>
+            <View style={styles.stats}>
+                <Text fontWeight="bold" fontSize="subheading">
+                    {formatK(repository.stargazersCount)}
+                </Text>
+                <Text color="textSecondary">Stars</Text>
             </View>
-            <View>
-                <Text >{repository.forksCount}</Text>
-                <Text >Forks</Text>
+            <View style={styles.stats}>
+                <Text fontWeight="bold" fontSize="subheading">
+                    {formatK(repository.forksCount)}
+                </Text>
+                <Text color="textSecondary">Forks</Text>
             </View>
-            <View>
-                <Text >{repository.reviewCount}</Text>
-                <Text >Reviews</Text>
+            <View style={styles.stats}>
+                <Text fontWeight="bold" fontSize="subheading">
+                    {repository.reviewCount}
+                </Text>
+                <Text color="textSecondary">Reviews</Text>
             </View>
-            <View>
-                <Text >{repository.ratingAverage}</Text>
-                <Text >Rating</Text>
+            <View style={styles.stats}>
+                <Text fontWeight="bold" fontSize="subheading">
+                    {repository.ratingAverage}
+                </Text>
+                <Text color="textSecondary">Rating</Text>
             </View>
         </View>
       </View>
