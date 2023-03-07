@@ -1,16 +1,20 @@
-import { StyleSheet, Pressable,Text,Alert } from 'react-native';
+import { Link } from "react-router-native";
+import { StyleSheet, Pressable,Text } from 'react-native';
 
 const Repositories = () => {
     const styles = StyleSheet.create({
         color: {
           color:'#fff',
           fontSize:20,
-          padding: 20
+          paddingHorizontal:5,
+          paddingVertical:20
         }
       });
   return (
-    <Pressable onPress={()=>Alert.alert('You pressed the text!')}>
+    <Pressable onPress={()=>console.log('You pressed the repositories!')}>
+      <Link to="/">
         <Text style={styles.color}>Repositories</Text>
+      </Link>
     </Pressable>
   )
 }
