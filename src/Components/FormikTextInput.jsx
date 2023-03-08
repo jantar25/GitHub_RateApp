@@ -8,6 +8,7 @@ import theme from '../theme';
 const styles = StyleSheet.create({
   errorText: {
     marginTop: 5,
+    color: theme.colors.error,
   },
   input: {
     marginVertical:10,
