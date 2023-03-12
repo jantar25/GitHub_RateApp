@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
+
+// import useRepositories from '../Hooks/useRepositories';
 import Item from './RepositoryItem';
+
 
 const styles = StyleSheet.create({
   separator: {
@@ -73,6 +76,8 @@ const RepositoryList = () => {
   useEffect(() => {
     fetchRepositories();
   }, []);
+
+  // const { repositories } = useRepositories();
 
   // Get the nodes from the edges array
   const repositoryNodes = repositories
