@@ -17,8 +17,6 @@ const useSignIn = () => {
      })
        return authenticatedUser
     };
-
-    console.log(result)
   
     return [logIn, result];
   };
