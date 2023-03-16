@@ -1,8 +1,11 @@
 import { useMutation } from '@apollo/client';
+
 import { LOGIN } from '../graphql/mutation';
+import { useAuthStorage } from './useAuthStorage';
 
 
 const useSignIn = () => {
+    const authStorage = useAuthStorage()
     const [authenticate, result] = useMutation(LOGIN,{
         onError: (error) => {
             const errorCode = error.graphQLErrors[0].message
