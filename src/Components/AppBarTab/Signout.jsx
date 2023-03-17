@@ -1,7 +1,7 @@
 import { StyleSheet,Text,Pressable} from 'react-native';
 import { useApolloClient } from '@apollo/client';
 
-import { useAuthStorage } from '../../Hooks/useAuthStorage';
+import useAuthStorage  from '../../Hooks/useAuthStorage';
 
 const Signout = () => {
     const authStorage = useAuthStorage()
