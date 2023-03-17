@@ -1,11 +1,13 @@
 import { StyleSheet,Text,Pressable} from 'react-native';
 import { useApolloClient } from '@apollo/client';
+import { useNavigate } from "react-router-native";
 
 import useAuthStorage  from '../../Hooks/useAuthStorage';
 
 const Signout = () => {
     const authStorage = useAuthStorage()
     const apolloClient = useApolloClient();
+    const navigate = useNavigate();
     const styles = StyleSheet.create({
         color: {
           color:'#fff',
@@ -18,6 +20,7 @@ const Signout = () => {
     const signOut = async () => {
         await authStorage.removeAccessToken()
         apolloClient.resetStore();
+        navigate('/');
       }
 
   return (

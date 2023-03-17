@@ -20,11 +20,12 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
   const { data } = useQuery(ME);
+  const currentUser = data?.me
 
   return <View style={styles.container}>
           <ScrollView horizontal style={styles.scrollView}>
             <Repositories />
-            {data?.me===null? <SignIn /> : <Signout />}
+            {!currentUser? <SignIn /> : <Signout />}
           </ScrollView>
         </View>;
 };
