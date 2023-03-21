@@ -46,7 +46,7 @@ const Item = ({repository}) => {
         }
       });
     return (
-      <View style={styles.container}>
+      <View style={styles.container} testID="repositoryItem">
         <View style={styles.topCard}>
             <Image
             style={styles.image}
