@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react-native';
+import { render, screen } from '@testing-library/react-native';
 
 import RepositoryListContainer from "../Components/RepositoryListContainer";
 import { formatK } from '../Utils/formatInThousand';
