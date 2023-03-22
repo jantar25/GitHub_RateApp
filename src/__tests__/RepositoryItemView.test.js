@@ -1,4 +1,7 @@
+import { render, screen, within } from '@testing-library/react-native';
 
+import RepositoryListContainer from "../Components/RepositoryListContainer";
+import { formatK } from '../Utils/formatInThousand';
 
 describe('RepositoryList', () => {
     describe('RepositoryListContainer', () => {
@@ -47,10 +50,26 @@ describe('RepositoryList', () => {
         };
   
         // Add your test code here
-        // const repositoryItems = screen.getAllByTestId('repositoryItem');
-        // const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
+        render(<RepositoryListContainer repositories={repositories} />);
 
-        // render(<firstRepositoryItem repository={} />);
+        const repositoryItems = screen.getAllByTestId('repositoryItem');
+        const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
+
+        expect(firstRepositoryItem).toHaveTextContent('jaredpalmer/formik');
+        expect(firstRepositoryItem).toHaveTextContent('Build forms in React, without the tears');
+        expect(firstRepositoryItem).toHaveTextContent('TypeScript');
+        expect(firstRepositoryItem).toHaveTextContent(formatK(1619));
+        expect(firstRepositoryItem).toHaveTextContent(formatK(21856));
+        expect(firstRepositoryItem).toHaveTextContent(88);
+        expect(firstRepositoryItem).toHaveTextContent(3);
+
+        expect(secondRepositoryItem).toHaveTextContent('async-library/react-async');
+        expect(secondRepositoryItem).toHaveTextContent('Flexible promise-based React data loader');
+        expect(secondRepositoryItem).toHaveTextContent('JavaScript');
+        expect(secondRepositoryItem).toHaveTextContent(formatK(69));
+        expect(secondRepositoryItem).toHaveTextContent(formatK(1760));
+        expect(secondRepositoryItem).toHaveTextContent(72);
+        expect(secondRepositoryItem).toHaveTextContent(3);
       });
     });
   });
