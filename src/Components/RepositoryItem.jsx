@@ -1,4 +1,6 @@
-import { View, StyleSheet,Image } from 'react-native';
+import { View, StyleSheet,Image,Pressable } from 'react-native';
+import * as Linking from 'expo-linking';
+
 import theme from '../theme';
 import Text from './Text';
 import { formatK } from '../Utils/formatInThousand';
@@ -20,7 +22,7 @@ const Item = ({repository}) => {
             flexDirection:'row'
         },
         bottomCard: {
-            paddingTop:10,
+            marginVertical:10,
             display:'flex',
             flexDirection:'row',
             justifyContent:'space-between',
@@ -40,11 +42,19 @@ const Item = ({repository}) => {
             padding:5,
             borderRadius:5,
         },
+        openGithub: {
+            backgroundColor:theme.colors.primary,
+            color:'#fff',
+            padding:10,
+            borderRadius:5,
+            textAlign:'center'
+        },
         stats: {
             display:'flex',
             alignItems:'center'
         }
       });
+
     return (
       <View style={styles.container} testID="repositoryItem">
         <View style={styles.topCard}>
@@ -88,6 +98,13 @@ const Item = ({repository}) => {
                 <Text color="textSecondary">Rating</Text>
             </View>
         </View>
+        <Pressable 
+        onPress={()=>Linking.openURL(repository.url)}>
+            <Text 
+              style={styles.openGithub}
+              fontWeight="bold"
+              fontSize ='subheading'>Open In GitHub</Text>
+        </Pressable>
       </View>
     );
   };
