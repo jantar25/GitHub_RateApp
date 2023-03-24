@@ -5,7 +5,7 @@ import theme from '../theme';
 import Text from './Text';
 import { formatK } from '../Utils/formatInThousand';
 
-const Item = ({repository}) => {
+const Item = ({repository,gitButton}) => {
     const styles = StyleSheet.create({
         container: {
           padding:20,  
@@ -98,13 +98,15 @@ const Item = ({repository}) => {
                 <Text color="textSecondary">Rating</Text>
             </View>
         </View>
-        <Pressable 
-        onPress={()=>Linking.openURL(repository.url)}>
-            <Text 
-              style={styles.openGithub}
-              fontWeight="bold"
-              fontSize ='subheading'>Open In GitHub</Text>
-        </Pressable>
+        {gitButton &&
+            <Pressable 
+            onPress={()=>Linking.openURL(repository.url)}>
+                <Text 
+                style={styles.openGithub}
+                fontWeight="bold"
+                fontSize ='subheading'>Open In GitHub</Text>
+            </Pressable>
+        }
       </View>
     );
   };

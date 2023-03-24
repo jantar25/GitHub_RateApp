@@ -11,7 +11,7 @@ const Repository = () => {
     variables: { id },
   });
   if (data) {
-    return <Item repository={data.repository} />
+    return <Item repository={data.repository} gitButton={true} />
   } 
 }
 
