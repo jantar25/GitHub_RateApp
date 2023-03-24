@@ -9,7 +9,7 @@ import ReviewItem from './ReviewItem';
 
 const styles = StyleSheet.create({
   separator: {
-    height: 10,
+    height: 5,
   },
 });
 const ItemSeparator = () => <View style={styles.separator} />;
