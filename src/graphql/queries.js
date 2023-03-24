@@ -35,6 +35,20 @@ query Query($id: ID!) {
           reviewCount
           ratingAverage
           url
+          reviews {
+            edges {
+              node {
+                id
+                rating
+                text
+                createdAt
+                user {
+                  id
+                  username
+                }
+              }
+            }
+          }
         }
       }
 `;

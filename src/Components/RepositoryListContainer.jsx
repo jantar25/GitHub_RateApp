@@ -28,7 +28,6 @@ const RepositoryListContainer = ({ repositories }) => {
             <Item repository={item} />
         </Pressable>)}
       keyExtractor={item => item.id}
-      // other props
     />
   )
 }

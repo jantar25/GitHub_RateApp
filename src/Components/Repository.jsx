@@ -1,18 +1,38 @@
+import { FlatList, View, StyleSheet } from 'react-native';
 import { useParams  } from 'react-router-native';
 import { useQuery } from '@apollo/client';
 
-import Item from './RepositoryItem';
 import { GET_REPOSITORY } from '../graphql/queries';
+import Item from './RepositoryItem';
+import ReviewItem from './ReviewItem';
 
+
+const styles = StyleSheet.create({
+  separator: {
+    height: 10,
+  },
+});
+const ItemSeparator = () => <View style={styles.separator} />;
 
 const Repository = () => {
   let { id } = useParams();
-  const { loading, error, data } = useQuery(GET_REPOSITORY, {
+  const { data } = useQuery(GET_REPOSITORY, {
     variables: { id },
   });
-  if (data) {
-    return <Item repository={data.repository} gitButton={true} />
+
+  if(data) {
+    const repository = data.repository
+    const reviews = repository.reviews.edges.map(edge => edge.node)
+      return (
+        <FlatList
+        data={reviews}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => <ReviewItem review={item} />}
+        keyExtractor={({ id }) => id}
+        ListHeaderComponent={() => <Item repository={repository} gitButton={true} />}
+      />
+      )
+  }
   } 
-}
 
 export default Repository
