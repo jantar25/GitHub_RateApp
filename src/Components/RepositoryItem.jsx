@@ -19,7 +19,7 @@ const Item = ({repository,gitButton}) => {
         },
         topCard: {
             display:'flex',
-            flexDirection:'row'
+            flexDirection:'row',
         },
         bottomCard: {
             marginVertical:10,

@@ -7,58 +7,53 @@ import Text from './Text';
 const ReviewItem = ({ review }) => {
     var date = format(new Date(review.createdAt), 'dd.MM.yyyy')
     const styles = StyleSheet.create({
-        container: {
-          padding:20,  
-          backgroundColor:'#fff'
+        container: {  
+          backgroundColor:'#fff',
+          padding:20,
+          display:'flex',
+          flexDirection:'row',
         },
-        image: {
-          width: 50,
-          height: 50,
-          borderRadius:5
+        rating: {
+          flex:1,
         },
-        topCard: {
+        ratingContainer: {
             display:'flex',
-            flexDirection:'row'
-        },
-        bottomCard: {
-            marginVertical:10,
-            display:'flex',
-            flexDirection:'row',
-            justifyContent:'space-between',
-            paddingHorizontal:30
+            alignItems:'center',
+            justifyContent:'center',
+            width: 50,
+            height: 50,
+            borderWidth:2,
+            borderColor:theme.colors.primary,
+            borderRadius:25,
         },
         info: {
-            paddingHorizontal:20,
+            flex:6,
+            paddingLeft:20,
             paddingVertical:5,
         },
-        description: {
-            paddingVertical:3,
+        text: {
+            alignSelf: 'center',
         },
-        language: {
-            backgroundColor:theme.colors.primary,
-            color:'#fff',
-            alignSelf: 'flex-start',
-            padding:5,
-            borderRadius:5,
-        },
-        openGithub: {
-            backgroundColor:theme.colors.primary,
-            color:'#fff',
-            padding:10,
-            borderRadius:5,
-            textAlign:'center'
-        },
-        stats: {
-            display:'flex',
-            alignItems:'center'
-        }
       });
   return (
     <View style={styles.container}>
-        <Text>{review.rating}</Text>
-        <Text>{review.user.username}</Text>
-        <Text>{date}</Text>
-        <Text>{review.text}</Text>
+            <View style={styles.rating}>
+                <View style={styles.ratingContainer}>
+                    <Text 
+                    color='primary'
+                    fontSize='subheading'
+                    fontWeight='bold'
+                    >{review.rating}</Text>
+                </View>
+            </View>
+            <View style={styles.info}>
+                <Text
+                fontWeight='bold'
+                fontSize='subheading'
+                >{review.user.username}</Text>
+                <Text color='textSecondary'>{date}</Text>
+                <Text style={styles.text}>{review.text}</Text>
+            </View>
     </View>
   )
 }
