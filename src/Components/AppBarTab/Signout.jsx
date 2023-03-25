@@ -12,7 +12,7 @@ const Signout = () => {
         color: {
           color:'#fff',
           fontSize:20,
-          paddingHorizontal:5,
+          paddingHorizontal:10,
           paddingVertical:20
         }
       });

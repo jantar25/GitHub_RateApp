@@ -6,6 +6,7 @@ import theme from '../theme';
 import Repositories from './AppBarTab/Repositories';
 import SignIn from './AppBarTab/SignIn';
 import Signout from './AppBarTab/Signout';
+import CreateReview from './AppBarTab/CreateReview';
 import { ME } from '../graphql/queries';
 
 const styles = StyleSheet.create({
@@ -15,6 +16,10 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 10,
+  },
+  flexRow: {
+    display:'flex',
+    flexDirection:'row'
   }
 });
 
@@ -25,7 +30,12 @@ const AppBar = () => {
   return <View style={styles.container}>
           <ScrollView horizontal style={styles.scrollView}>
             <Repositories />
-            {!currentUser? <SignIn /> : <Signout />}
+            {!currentUser? <SignIn /> : (
+              <View style={styles.flexRow}>
+                <CreateReview />
+                <Signout />
+              </View>
+            )}
           </ScrollView>
         </View>;
 };

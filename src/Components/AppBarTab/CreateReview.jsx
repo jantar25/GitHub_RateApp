@@ -1,7 +1,7 @@
 import { Link } from "react-router-native";
-import { StyleSheet,Text} from 'react-native';
+import { StyleSheet,Text } from 'react-native';
 
-const SignIn = () => {
+const CreateReview = () => {
     const styles = StyleSheet.create({
         color: {
           color:'#fff',
@@ -11,10 +11,10 @@ const SignIn = () => {
         }
       });
   return (
-    <Link to="/signIn">
-        <Text style={styles.color}>Sign In</Text>
-    </Link>
+    <Link to="/createReview">
+    <Text style={styles.color}>Create a Review</Text>
+  </Link>
   )
 }
 
-export default SignIn
+export default CreateReview
