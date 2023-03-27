@@ -7,8 +7,9 @@ import FormikTextInput from './FormikTextInput';
 import theme from '../theme';
 
 const validationSchema = yup.object().shape({
-  username: yup.string().required('Username is required'),
-  password: yup.string().required('Password is required'),
+  Repository_owner_name: yup.string().required('Repository owner name is required'),
+  Repository_name: yup.string().required('Repository name is required'),
+  Rating: yup.number().required('Rating is required'),
 });
 
 const CreateReviewForm = ({onSubmit}) => {
@@ -28,8 +29,10 @@ const CreateReviewForm = ({onSubmit}) => {
   });
 
   const initialValues = {
-      username: '',
-      password: '',
+    Repository_owner_name: '',
+    Repository_name: '',
+    Rating:0,
+    Review:''
     };
   return (
     <Formik 
@@ -38,10 +41,12 @@ const CreateReviewForm = ({onSubmit}) => {
     validationSchema={validationSchema}>
       {({ handleSubmit }) => (
         <View style={styles.form}>
-            <FormikTextInput name="username" placeholder="Username" />
-            <FormikTextInput name="password" placeholder="Password" secureTextEntry />
+            <FormikTextInput name="Repository_owner_name" placeholder="Repository owner name" />
+            <FormikTextInput name="Repository_name" placeholder="Repository name" />
+            <FormikTextInput name="Rating" placeholder="Rating between 0 and 100" />
+            <FormikTextInput name="Review" placeholder="Review" />
             <Pressable onPress={handleSubmit}>
-            <Text style={styles.button}>Create Review</Text>
+            <Text style={styles.button}>Create a review</Text>
             </Pressable>
         </View>
     )}

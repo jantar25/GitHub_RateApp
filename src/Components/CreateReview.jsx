@@ -2,9 +2,9 @@ import { View } from "react-native"
 
 import CreateReviewForm from "./CreateReviewForm"
 
-const CreateReview = () => {
+const CreateReview = (values) => {
     const handleSubmit = () => {
-        console.log('Review submitted')
+        console.log(values)
     }
   return (
     <View>
