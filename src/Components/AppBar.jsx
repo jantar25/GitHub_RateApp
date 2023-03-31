@@ -6,6 +6,7 @@ import theme from '../theme';
 import Repositories from './AppBarTab/Repositories';
 import SignIn from './AppBarTab/SignIn';
 import Signout from './AppBarTab/Signout';
+import SignUp from './AppBarTab/SignUp';
 import CreateReview from './AppBarTab/CreateReview';
 import { ME } from '../graphql/queries';
 
@@ -30,7 +31,12 @@ const AppBar = () => {
   return <View style={styles.container}>
           <ScrollView horizontal style={styles.scrollView}>
             <Repositories />
-            {!currentUser? <SignIn /> : (
+            {!currentUser? (
+              <View style={styles.flexRow}>
+                <SignIn />
+                <SignUp />
+              </View>
+            ) : (
               <View style={styles.flexRow}>
                 <CreateReview />
                 <Signout />
