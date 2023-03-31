@@ -43,7 +43,7 @@ const LogInForm = ({onSubmit}) => {
                 <FormikTextInput name="username" placeholder="Username" />
                 <FormikTextInput name="password" placeholder="Password" secureTextEntry />
                 <Pressable onPress={handleSubmit}>
-                <Text style={styles.button}>Sign In</Text>
+                  <Text style={styles.button}>Sign In</Text>
                 </Pressable>
             </View>
         )}

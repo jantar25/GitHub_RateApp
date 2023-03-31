@@ -16,11 +16,13 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const Repository = () => {
   let { id } = useParams();
+
   const { data } = useQuery(GET_REPOSITORY, {
+    fetchPolicy: 'cache-and-network',
     variables: { id },
   });
 
-  if(data) {
+  if(data?.repository) {
     const repository = data.repository
     const reviews = repository.reviews.edges.map(edge => edge.node)
       return (
