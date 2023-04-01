@@ -1,10 +1,14 @@
 import { View, Pressable,StyleSheet } from 'react-native';
+import { useNavigate } from "react-router-native";
+import { useMutation } from '@apollo/client';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
 import Text from './Text';
 import FormikTextInput from './FormikTextInput';
 import theme from '../theme';
+import { CREATE_USER } from '../graphql/mutation';
+import useSignIn from '../Hooks/useSignIn';
 
 
 const validationSchema = yup.object().shape({
@@ -20,6 +24,14 @@ const validationSchema = yup.object().shape({
   });
 
 const SignUpForm = () => {
+  const [logIn] = useSignIn();
+  const navigate = useNavigate();
+  const [createUser] = useMutation(CREATE_USER,{
+    onError: (error) => {
+        const errorCode = error.graphQLErrors[0].message
+        console.log(errorCode)
+    }
+  });
   const styles = StyleSheet.create({
     form: {
       backgroundColor:'#fff',
@@ -36,8 +48,21 @@ const SignUpForm = () => {
   });
 
   const onSubmit = async (values) => {
-    console.log(values)
-  };
+  const { username, password } = values;
+  
+  try {
+    const { data } = await createUser({ 
+      variables: { user:{username, password} }
+    })
+    if(data.createUser) {
+      await logIn({ username, password });
+      navigate("/", { replace: true })
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+};
 
   const initialValues = {
       username: '',
