@@ -1,5 +1,7 @@
-import { StyleSheet,Text,View,FlatList } from 'react-native';
+import { StyleSheet,View,FlatList } from 'react-native';
+
 import useMe from '../Hooks/useMe';
+import Review from './Review';
 
 
 const styles = StyleSheet.create({
@@ -17,18 +19,11 @@ const MyReviews = () => {
     ? userData.reviews.edges.map(edge => edge.node)
     : [];
 
-    const styles = StyleSheet.create({
-        color: {
-          fontSize:20,
-          paddingHorizontal:10,
-          paddingVertical:20
-        }
-      });
   return (
     <FlatList
     data={reviewsNodes}
     ItemSeparatorComponent={ItemSeparator}
-    renderItem={({item}) => (<Text>{item.id}</Text>)}
+    renderItem={({item}) => (<Review review={item} />)}
     keyExtractor={item => item.id}
   />
   )
