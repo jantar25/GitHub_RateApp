@@ -1,13 +1,11 @@
-
 import { useQuery } from '@apollo/client';
 
 import { GET_REPOSITORIES } from '../graphql/queries';
 
-const useRepositories = (selectedFilter) => {
-
+const useRepositories = (selectedFilter,value) => {
   if (selectedFilter === 'CREATED_AT') {
     const { data, error,loading } = useQuery(GET_REPOSITORIES, {
-      variables: { orderBy: selectedFilter },
+      variables: { orderBy: selectedFilter,searchKeyword:value },
       fetchPolicy: 'cache-and-network',
     }); 
     const repositories = data?.repositories
@@ -15,7 +13,7 @@ const useRepositories = (selectedFilter) => {
 
   } else {
     const { data, error,loading } = useQuery(GET_REPOSITORIES, {
-      variables: { orderBy: "RATING_AVERAGE",orderDirection:selectedFilter },
+      variables: { orderBy: "RATING_AVERAGE",orderDirection:selectedFilter,searchKeyword:value },
       fetchPolicy: 'cache-and-network',
     });
     const repositories = data?.repositories

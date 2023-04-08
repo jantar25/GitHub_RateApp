@@ -37,11 +37,8 @@ export class RepositoryListContainer extends React.Component {
     );
   };
 
-      
-    // Get the nodes from the edges array
 
   render() {;
-
     return (
       <FlatList
         data={this.props.repositories}
