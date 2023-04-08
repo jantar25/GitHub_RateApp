@@ -1,5 +1,7 @@
+import React from 'react';
 import { FlatList, View, StyleSheet,Pressable } from 'react-native';
-import { useNavigate } from "react-router-native";
+import { Picker } from '@react-native-picker/picker';
+import { Searchbar } from 'react-native-paper';
 
 import Item from './RepositoryItem';
 
@@ -11,25 +13,45 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const RepositoryListContainer = ({ repositories }) => {
-  const navigate = useNavigate();
-      // Get the nodes from the edges array
-  const repositoryNodes = repositories
-  ? repositories.edges.map(edge => edge.node)
-  : [];
+export class RepositoryListContainer extends React.Component {
+  renderHeader = () => {
+    // this.props contains the component's props
+    const props = this.props;
+    return (
+      <View>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={props.onChangeSearch}
+        value={props.searchQuery}
+      />
+      <Picker
+        selectedValue={props.selectedFilter}
+        onValueChange={(itemValue, itemIndex) =>
+          props.handleCallBack(itemValue)
+        }>
+        <Picker.Item label="Latest repositories" value="CREATED_AT" />
+        <Picker.Item label="Highest rated repositories" value="DESC" />
+        <Picker.Item label="Lowest rated repositories" value="ASC" />
+      </Picker>
+    </View>
+    );
+  };
 
-  return (
-    <FlatList
-      data={repositoryNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={({item}) => (
-        <Pressable 
-          onPress={()=>navigate(`/${item.id}`)}>
-            <Item repository={item} />
-        </Pressable>)}
-      keyExtractor={item => item.id}
-    />
-  )
+      
+    // Get the nodes from the edges array
+
+  render() {;
+
+    return (
+      <FlatList
+        data={this.props.repositories}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({item}) => (<Item repository={item} />)}
+        keyExtractor={item => item.id}
+        ListHeaderComponent={this.renderHeader}
+      />
+    );
+  }
 }
 
 export default RepositoryListContainer

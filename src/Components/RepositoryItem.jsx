@@ -1,11 +1,13 @@
 import { View, StyleSheet,Image,Pressable } from 'react-native';
 import * as Linking from 'expo-linking';
+import { useNavigate } from "react-router-native";
 
 import theme from '../theme';
 import Text from './Text';
 import { formatK } from '../Utils/formatInThousand';
 
 const Item = ({repository,gitButton}) => {
+    const navigate = useNavigate()
     const styles = StyleSheet.create({
         container: {
           padding:20,  
@@ -56,58 +58,60 @@ const Item = ({repository,gitButton}) => {
       });
 
     return (
-      <View style={styles.container} testID="repositoryItem">
-        <View style={styles.topCard}>
-            <Image
-            style={styles.image}
-            source={{uri:repository.ownerAvatarUrl}}
-            />
-            <View style={styles.info}>
-                <Text fontWeight="bold" fontSize="subheading">
-                        {repository.fullName}
-                </Text>
-                <Text color="textSecondary" style={styles.description}>
-                    {repository.description}
-                </Text>
-                <Text style={styles.language}>{repository.language}</Text>
+        <Pressable onPress={()=>navigate(`/${repository.id}`)}>
+            <View style={styles.container} testID="repositoryItem">
+                <View style={styles.topCard}>
+                    <Image
+                    style={styles.image}
+                    source={{uri:repository.ownerAvatarUrl}}
+                    />
+                    <View style={styles.info}>
+                        <Text fontWeight="bold" fontSize="subheading">
+                                {repository.fullName}
+                        </Text>
+                        <Text color="textSecondary" style={styles.description}>
+                            {repository.description}
+                        </Text>
+                        <Text style={styles.language}>{repository.language}</Text>
+                    </View>
+                </View>
+                <View style={styles.bottomCard}>
+                    <View style={styles.stats}>
+                        <Text fontWeight="bold" fontSize="subheading">
+                            {formatK(repository.stargazersCount)}
+                        </Text>
+                        <Text color="textSecondary">Stars</Text>
+                    </View>
+                    <View style={styles.stats}>
+                        <Text fontWeight="bold" fontSize="subheading">
+                            {formatK(repository.forksCount)}
+                        </Text>
+                        <Text color="textSecondary">Forks</Text>
+                    </View>
+                    <View style={styles.stats}>
+                        <Text fontWeight="bold" fontSize="subheading">
+                            {repository.reviewCount}
+                        </Text>
+                        <Text color="textSecondary">Reviews</Text>
+                    </View>
+                    <View style={styles.stats}>
+                        <Text fontWeight="bold" fontSize="subheading">
+                            {repository.ratingAverage}
+                        </Text>
+                        <Text color="textSecondary">Rating</Text>
+                    </View>
+                </View>
+                {gitButton &&
+                    <Pressable 
+                    onPress={()=>Linking.openURL(repository.url)}>
+                        <Text 
+                        style={styles.openGithub}
+                        fontWeight="bold"
+                        fontSize ='subheading'>Open In GitHub</Text>
+                    </Pressable>
+                }
             </View>
-        </View>
-        <View style={styles.bottomCard}>
-            <View style={styles.stats}>
-                <Text fontWeight="bold" fontSize="subheading">
-                    {formatK(repository.stargazersCount)}
-                </Text>
-                <Text color="textSecondary">Stars</Text>
-            </View>
-            <View style={styles.stats}>
-                <Text fontWeight="bold" fontSize="subheading">
-                    {formatK(repository.forksCount)}
-                </Text>
-                <Text color="textSecondary">Forks</Text>
-            </View>
-            <View style={styles.stats}>
-                <Text fontWeight="bold" fontSize="subheading">
-                    {repository.reviewCount}
-                </Text>
-                <Text color="textSecondary">Reviews</Text>
-            </View>
-            <View style={styles.stats}>
-                <Text fontWeight="bold" fontSize="subheading">
-                    {repository.ratingAverage}
-                </Text>
-                <Text color="textSecondary">Rating</Text>
-            </View>
-        </View>
-        {gitButton &&
-            <Pressable 
-            onPress={()=>Linking.openURL(repository.url)}>
-                <Text 
-                style={styles.openGithub}
-                fontWeight="bold"
-                fontSize ='subheading'>Open In GitHub</Text>
-            </Pressable>
-        }
-      </View>
+        </Pressable>
     );
   };
   
