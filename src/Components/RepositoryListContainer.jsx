@@ -23,6 +23,10 @@ export class RepositoryListContainer extends React.Component {
         placeholder="Search"
         onChangeText={props.onChangeSearch}
         value={props.searchQuery}
+        style={{
+          borderRadius: 4,
+          margin:16
+        }}
       />
       <Picker
         selectedValue={props.selectedFilter}
