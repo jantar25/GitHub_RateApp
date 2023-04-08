@@ -1,5 +1,4 @@
-import { View, StyleSheet, ScrollView,Pressable,Text } from 'react-native';
-import { useQuery } from '@apollo/client';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 
 import theme from '../theme';
@@ -8,7 +7,8 @@ import SignIn from './AppBarTab/SignIn';
 import Signout from './AppBarTab/Signout';
 import SignUp from './AppBarTab/SignUp';
 import CreateReview from './AppBarTab/CreateReview';
-import { ME } from '../graphql/queries';
+import MyReviews from './AppBarTab/MyReviews';
+import useMe from '../Hooks/useMe';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
-  const { data } = useQuery(ME);
-  const currentUser = data?.me
+  const currentUser = useMe();
 
   return <View style={styles.container}>
           <ScrollView horizontal style={styles.scrollView}>
@@ -39,6 +38,7 @@ const AppBar = () => {
             ) : (
               <View style={styles.flexRow}>
                 <CreateReview />
+                <MyReviews />
                 <Signout />
               </View>
             )}

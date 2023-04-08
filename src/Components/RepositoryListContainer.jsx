@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, StyleSheet,Pressable } from 'react-native';
+import { FlatList, View, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Searchbar } from 'react-native-paper';
 
