@@ -68,6 +68,7 @@ query getCurrentUser($includeReviews: Boolean = false) {
             fullName
             id
             name
+            url
           }
           text
           userId

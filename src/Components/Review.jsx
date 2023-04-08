@@ -1,4 +1,5 @@
-import { StyleSheet,View } from 'react-native';
+import { StyleSheet,View,Pressable } from 'react-native';
+import * as Linking from 'expo-linking';
 import { format } from 'date-fns'
 
 import theme from '../theme';
@@ -34,8 +35,30 @@ const Review = ({review}) => {
           text: {
               alignSelf: 'center',
           },
+          btnsContainer: {
+            display:'flex',
+            flexDirection:'row',
+            justifyContent: 'space-between',
+            backgroundColor:'#fff',
+            padding:20,
+          },
+          deleteRepository: {
+            backgroundColor:theme.colors.error,
+            color:'#fff',
+            padding:20,
+            borderRadius:5,
+            textAlign:'center'
+          },
+          viewRepository : {
+            backgroundColor:theme.colors.primary,
+            color:'#fff',
+            padding:20,
+            borderRadius:5,
+            textAlign:'center'
+          }
       });
   return (
+    <View>
         <View style={styles.container}>
             <View style={styles.rating}>
                 <View style={styles.ratingContainer}>
@@ -55,6 +78,23 @@ const Review = ({review}) => {
                 <Text style={styles.text}>{review.text}</Text>
             </View>
         </View>
+        <View style={styles.btnsContainer}>
+                <Pressable 
+                    onPress={()=>Linking.openURL(review.repository.url)}>
+                    <Text 
+                        style={styles.viewRepository}
+                        fontWeight="bold"
+                        fontSize ='subheading'>View repository</Text>
+                </Pressable>
+                <Pressable 
+                    onPress={()=>Linking.openURL(review.repository.url)}>
+                    <Text 
+                        style={styles.deleteRepository}
+                        fontWeight="bold"
+                        fontSize ='subheading'>Delete repository</Text>
+                </Pressable>
+        </View>
+    </View>
     )
 }
 
