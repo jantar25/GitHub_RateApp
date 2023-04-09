@@ -25,12 +25,12 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
-  const currentUser = useMe();
+  const { userData } = useMe();
 
   return <View style={styles.container}>
           <ScrollView horizontal style={styles.scrollView}>
             <Repositories />
-            {!currentUser? (
+            {!userData? (
               <View style={styles.flexRow}>
                 <SignIn />
                 <SignUp />

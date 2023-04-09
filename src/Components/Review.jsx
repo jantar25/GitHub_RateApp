@@ -1,12 +1,39 @@
-import { StyleSheet,View,Pressable } from 'react-native';
+import { StyleSheet,View,Pressable,Alert } from 'react-native';
 import * as Linking from 'expo-linking';
 import { format } from 'date-fns'
+import { useMutation } from '@apollo/client';
 
 import theme from '../theme';
 import Text from './Text';
+import { DELETE_REVIEW } from '../graphql/mutation';
 
-const Review = ({review}) => {
-    let date = format(new Date(review.createdAt), 'dd.MM.yyyy')
+const Review = ({review,refetch}) => {
+    let date = format(new Date(review.createdAt), 'dd.MM.yyyy');
+    const [deleteReview] = useMutation(DELETE_REVIEW, {
+        onError: (error) => {
+            const errorCode = error.graphQLErrors[0].message
+            console.log(errorCode)
+        }
+      });
+
+    const handleDelete = (id) => {
+        Alert.alert('Delete Review', 'Are you sure you want to delete this review?', [
+            {
+              text: 'CANCEL',
+              onPress: () => console.log('Cancelled'),
+            },
+            {text: 'DELETE', onPress: async () => {
+                try {
+                    await deleteReview({ variables: { deleteReviewId: id }})
+                    refetch()
+                  } catch (e) {
+                    console.log(e);
+                  }
+                }
+            },
+        ]);
+    }
+    
     const styles = StyleSheet.create({
         container: {  
             backgroundColor:'#fff',
@@ -40,19 +67,22 @@ const Review = ({review}) => {
             flexDirection:'row',
             justifyContent: 'space-between',
             backgroundColor:'#fff',
-            padding:20,
+            paddingHorizontal:20,
+            paddingBottom:20,
           },
           deleteRepository: {
             backgroundColor:theme.colors.error,
             color:'#fff',
-            padding:20,
+            paddingHorizontal:30,
+            paddingVertical:20,
             borderRadius:5,
             textAlign:'center'
           },
           viewRepository : {
             backgroundColor:theme.colors.primary,
             color:'#fff',
-            padding:20,
+            paddingHorizontal:30,
+            paddingVertical:20,
             borderRadius:5,
             textAlign:'center'
           }
@@ -87,7 +117,7 @@ const Review = ({review}) => {
                         fontSize ='subheading'>View repository</Text>
                 </Pressable>
                 <Pressable 
-                    onPress={()=>Linking.openURL(review.repository.url)}>
+                    onPress={()=>handleDelete(review.id)}>
                     <Text 
                         style={styles.deleteRepository}
                         fontWeight="bold"

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const MyReviews = () => {
-    const userData  = useMe(true)
+    const { userData,refetch }  = useMe(true)
       // Get the nodes from the edges array
     const reviewsNodes = userData
     ? userData.reviews.edges.map(edge => edge.node)
@@ -23,7 +23,7 @@ const MyReviews = () => {
     <FlatList
     data={reviewsNodes}
     ItemSeparatorComponent={ItemSeparator}
-    renderItem={({item}) => (<Review review={item} />)}
+    renderItem={({item}) => (<Review review={item} refetch={refetch} />)}
     keyExtractor={item => item.id}
   />
   )

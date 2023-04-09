@@ -4,13 +4,15 @@ import { ME } from "../graphql/queries";
 
 const useMe = (showReviews) => {
     if (showReviews) {
-        const { data } = useQuery(ME, {
+        const { data,refetch  } = useQuery(ME, {
             variables: { includeReviews: showReviews },
           })
-          return data?.me
+          const userData = data?.me
+          return { userData,refetch }
     } else {
-        const { data } = useQuery(ME)
-        return data?.me
+        const { data,refetch } = useQuery(ME)
+        const userData = data?.me
+        return { userData,refetch }
     }
 
 }
