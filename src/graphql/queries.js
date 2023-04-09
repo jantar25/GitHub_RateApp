@@ -2,9 +2,10 @@ import { gql } from '@apollo/client';
 import { REPOSITORY_BASE_FIELDS, } from './fragments';
 
 export const GET_REPOSITORIES = gql`
-query Query($orderDirection: OrderDirection, $orderBy: AllRepositoriesOrderBy,$searchKeyword: String) {
-  repositories(orderDirection: $orderDirection, orderBy: $orderBy,searchKeyword: $searchKeyword) {
+query Query($orderDirection: OrderDirection, $orderBy: AllRepositoriesOrderBy,$searchKeyword: String,$first: Int) {
+  repositories(orderDirection: $orderDirection, orderBy: $orderBy,searchKeyword: $searchKeyword,first: $first) {
       edges {
+        cursor
         node {
           id
           fullName
@@ -18,6 +19,13 @@ query Query($orderDirection: OrderDirection, $orderBy: AllRepositoriesOrderBy,$s
           url
         }
       }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+      totalCount
     }
   }
 `;

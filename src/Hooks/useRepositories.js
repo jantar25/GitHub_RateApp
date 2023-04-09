@@ -3,21 +3,62 @@ import { useQuery } from '@apollo/client';
 import { GET_REPOSITORIES } from '../graphql/queries';
 
 const useRepositories = (selectedFilter,value) => {
+
   if (selectedFilter === 'CREATED_AT') {
-    const { data, error,loading } = useQuery(GET_REPOSITORIES, {
-      variables: { orderBy: selectedFilter,searchKeyword:value },
+    const { data,fetchMore, error,loading,...result } = useQuery(GET_REPOSITORIES, {
+      variables: { orderBy: selectedFilter,searchKeyword:value},
       fetchPolicy: 'cache-and-network',
     }); 
-    const repositories = data?.repositories
-    return { repositories, loading }; 
+
+    const handleFetchMore = () => {
+      const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+
+      if (!canFetchMore) {
+        return;
+      }
+      
+      fetchMore({
+        variables: {
+          after: data.repositories.pageInfo.endCursor,
+          orderBy: selectedFilter,searchKeyword:value
+        },
+      });
+    };
+
+    return { 
+      repositories: data?.repositories,
+      fetchMore: handleFetchMore,
+      loading,
+      ...result,
+    }; 
 
   } else {
-    const { data, error,loading } = useQuery(GET_REPOSITORIES, {
+    const { data,fetchMore, error,loading,...result } = useQuery(GET_REPOSITORIES, {
       variables: { orderBy: "RATING_AVERAGE",orderDirection:selectedFilter,searchKeyword:value },
       fetchPolicy: 'cache-and-network',
     });
-    const repositories = data?.repositories
-    return { repositories, loading };
+
+    const handleFetchMore = () => {
+      const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+
+      if (!canFetchMore) {
+        return;
+      }
+      
+      fetchMore({
+        variables: {
+          after: data.repositories.pageInfo.endCursor,
+          orderBy: "RATING_AVERAGE",orderDirection:selectedFilter,searchKeyword:value
+        },
+      });
+    };
+
+    return { 
+      repositories: data?.repositories,
+      fetchMore: handleFetchMore,
+      loading,
+      ...result,
+    };
     
   }
 

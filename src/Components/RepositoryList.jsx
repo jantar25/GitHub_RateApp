@@ -10,7 +10,11 @@ const RepositoryList = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [value] = useDebounce(searchQuery, 500);
 
-  const { repositories } = useRepositories(selectedFilter,value);
+  const { repositories,fetchMore } = useRepositories(selectedFilter,value);
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   const callBack = (filter) => setSelectedFilter(filter)
   const onChangeSearch = (query) => setSearchQuery(query);
@@ -26,6 +30,7 @@ const RepositoryList = () => {
           onChangeSearch={onChangeSearch} 
           searchQuery={searchQuery}
           selectedFilter={selectedFilter}
+          onEndReach={onEndReach}
           />
 };
 
