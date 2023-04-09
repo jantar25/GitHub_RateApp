@@ -48,9 +48,11 @@ describe('RepositoryList', () => {
             },
           ],
         };
+
+        const repositoryNodes = repositories.edges.map(edge => edge.node);
   
         // Add your test code here
-        render(<RepositoryListContainer repositories={repositories} />);
+        render(<RepositoryListContainer repositories={repositoryNodes} />);
 
         const repositoryItems = screen.getAllByTestId('repositoryItem');
         const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
