@@ -31,7 +31,7 @@ query Query($orderDirection: OrderDirection, $orderBy: AllRepositoriesOrderBy,$s
 `;
 
 export const GET_REPOSITORY = gql`
-query Query($id: ID!) {
+query Query($id: ID!,) {
   repository(id: $id) {
           id
           fullName
@@ -43,18 +43,26 @@ query Query($id: ID!) {
           reviewCount
           ratingAverage
           url
-          reviews {
+          reviews(first: 3,after:"WzE2Nzg1NTUyMzQ2NjYsIjc1M2YzZTk5LWU3M2EtNDNhMy05YTUwLWIzMGQ3NzI3YzBlYi5qYXJlZHBhbG1lci5mb3JtaWsiXQ==") {
+            totalCount
             edges {
               node {
                 id
-                rating
                 text
+                rating
                 createdAt
+                repositoryId
                 user {
                   id
                   username
                 }
               }
+              cursor
+            }
+            pageInfo {
+              endCursor
+              startCursor
+              hasNextPage
             }
           }
         }
@@ -86,3 +94,4 @@ query getCurrentUser($includeReviews: Boolean = false) {
   }
 }
 `;
+
