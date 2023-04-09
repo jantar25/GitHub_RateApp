@@ -1,13 +1,12 @@
 import { View, StyleSheet,Image,Pressable } from 'react-native';
 import * as Linking from 'expo-linking';
-import { useNavigate } from "react-router-native";
+
 
 import theme from '../theme';
 import Text from './Text';
 import { formatK } from '../Utils/formatInThousand';
 
 const Item = ({repository,gitButton}) => {
-    const navigate = useNavigate()
     const styles = StyleSheet.create({
         container: {
           padding:20,  
@@ -58,7 +57,6 @@ const Item = ({repository,gitButton}) => {
       });
 
     return (
-        <Pressable onPress={()=>navigate(`/${repository.id}`)}>
             <View style={styles.container} testID="repositoryItem">
                 <View style={styles.topCard}>
                     <Image
@@ -111,7 +109,6 @@ const Item = ({repository,gitButton}) => {
                     </Pressable>
                 }
             </View>
-        </Pressable>
     );
   };
   

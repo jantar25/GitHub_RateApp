@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
+import { useNavigate } from "react-router-native";
 
 import RepositoryListContainer from './RepositoryListContainer';
 import useRepositories from '../Hooks/useRepositories';
 
 
 const RepositoryList = () => {
+  const navigate = useNavigate()
   const [selectedFilter, setSelectedFilter] = useState("CREATED_AT");
   const [searchQuery, setSearchQuery] = useState('');
   const [value] = useDebounce(searchQuery, 500);
@@ -20,17 +22,16 @@ const RepositoryList = () => {
   const onChangeSearch = (query) => setSearchQuery(query);
 
   // Get the nodes from the edges array
-  const repositoryNodes = repositories
-  ? repositories.edges.map(edge => edge.node)
-  : [];
+
 
   return <RepositoryListContainer 
-          repositories={repositoryNodes} 
+          repositories={repositories} 
           handleCallBack={callBack}
           onChangeSearch={onChangeSearch} 
           searchQuery={searchQuery}
           selectedFilter={selectedFilter}
           onEndReach={onEndReach}
+          onRepositoryPress={(id)=>navigate(`/repositories/${id}`)}
           />
 };
 

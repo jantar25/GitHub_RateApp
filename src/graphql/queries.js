@@ -43,7 +43,7 @@ query Query($id: ID!,) {
           reviewCount
           ratingAverage
           url
-          reviews(first: 3,after:"WzE2Nzg1NTUyMzQ2NjYsIjc1M2YzZTk5LWU3M2EtNDNhMy05YTUwLWIzMGQ3NzI3YzBlYi5qYXJlZHBhbG1lci5mb3JtaWsiXQ==") {
+          reviews(first: 2,after:"WzE2Nzg1NTUyMzQ2NjYsIjc1M2YzZTk5LWU3M2EtNDNhMy05YTUwLWIzMGQ3NzI3YzBlYi5qYXJlZHBhbG1lci5mb3JtaWsiXQ==") {
             totalCount
             edges {
               node {

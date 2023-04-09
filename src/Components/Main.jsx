@@ -26,7 +26,7 @@ const Main = () => {
         <Route path="/signUp" element={<SignUpForm />} exact />
         <Route path="/createReview" element={<CreateReviewForm />} exact />
         <Route path="/myRewiews" element={<MyReviews />} exact />
-        <Route path="/:id" element={<Repository />} exact />
+        <Route path="/repositories/:id" element={<Repository />} exact />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </View>

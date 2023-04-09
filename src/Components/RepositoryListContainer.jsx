@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet,Pressable } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Searchbar } from 'react-native-paper';
 
@@ -42,15 +42,25 @@ export class RepositoryListContainer extends React.Component {
   };
 
 
-  render() {;
+  render() {
+    const { repositories, onEndReach, onRepositoryPress } = this.props;
+
+    const repositoryNodes = repositories
+    ? repositories.edges.map(edge => edge.node)
+    : [];
+
     return (
       <FlatList
-        data={this.props.repositories}
+        data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
-        renderItem={({item}) => (<Item repository={item} />)}
+        renderItem={({item}) => (
+          <Pressable onPress={() => onRepositoryPress(item.id)}>
+            <Item repository={item} />
+          </Pressable>
+          )}
         keyExtractor={item => item.id}
         ListHeaderComponent={this.renderHeader}
-        onEndReached={this.props.onEndReach}
+        onEndReached={onEndReach}
         onEndReachedThreshold={0.5}
       />
     );
